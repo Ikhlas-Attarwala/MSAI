@@ -1,0 +1,21 @@
+{
+    "movebetweenrooms": "I walked from the {0} to the {1}.",
+    "bloodiedweaponismurderweapon": "The {0} had the victim's blood on it, so it must have been used for the murder.", 
+    "owningmurderweapongivesmeans": "The {0} owned the {1}, so obviously they had the means to carry out the murder.",
+    "proximitytoweapongivesmeans": "I knew that the {0} typically spends time in the {1}, and the murder weapon was found there. Therefore, the {0} could have easily had the means to commit the murder.",
+    "fingerprintsonweapongivesmeans": "The {0}'s fingerprints were found on the {1}. They had touched it before, so they had the means to use it.",
+    "locationalibidoesnotcorroborateissuspicious": "The alibis of the {0} and the {1} didn't match up. This was suspicious.",
+    "nolocationalibiissuspicious": "The {0} had no alibi for their location. This made me very suspicious of them.",
+    "scaredduringinterrogationissuspicious": "The {0} seemed frightened during the interrogation, like they had something to hide. This made me suspicious.",
+    "investigateroom": "I decided to investigate the {1}, and I discovered a {0}.",
+    "interrogateperson": "I spoke with the {0}.",
+    "identifyweapon": "I had already found the {0}, which I knew could be used as a weapon.",
+    "discoverkeyowneriskiller": "Since the {0} owns the key to the {3}, the {0} must have killed the {1}. Very suspicious.",
+    "lovetrianglecauseshatred": "Since the {0} and the {2} are both in love with the same person (the {1}), the two must have developed a mutual hatred for each other.",
+    "hateisamotive": "The {0} hated the victim, the {1}, so they definitely had a motive for the murder.",
+    "envyisamotive": "The {0} was jealous of the victim, the {1}, so they definitely had a motive for the murder.",
+    "meansmotivesuspiciousimpliesguilt": "I have gathered enough evidence! The {0} had the means to commit the murder, a reason for doing so, and acted suspiciously. I conclude the {0} committed this crime! Case closed!!",
+    "meanssuspiciousimpliesprobable": "The {0} had the means to commit the murder and acted suspiciously. I don't know their motive, but it's probable they committed the murder!",
+    "suspiciousmotiveimpliesprobable": "The {0} acted suspiciously and had a motive, but I don't know how they killed the victim. I deem it probable they committed the murder!",
+    "anyclueimplieshunch": "Unfortunately, I couldn't find enough evidence in this mansion. While I don't know anything for sure, I have a hunch that the {0} committed the crime!"
+}

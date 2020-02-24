@@ -1,0 +1,527 @@
+(define (domain murder-mansion)
+    (:requirements :strips :typing)
+    
+    (:types
+        case - case
+        person - person
+        detective - detective
+        object - object
+        key - key
+        clue - clue
+        room - room
+        alibi - alibi
+    )
+    
+    (:predicates
+        ; KILLER & KILLED
+        (dead
+            ?p - person)
+        (murderer
+            ?p - person)
+        ; ACCESS TO WEAPON (MEANS)
+        (accessTo
+            ?p - person
+            ?o - object)
+        (accessToWeapon
+            ?p - person
+            ?o - object)
+        (ownershipOf
+            ?p - person
+            ?o - object)
+        (clueOn
+            ?c - clue
+            ?o - object)
+            (bloodOn
+                ?o - object)
+            (fingerprintOn
+                ?o - object)
+        (clueProvesAlibiFalse
+            ?o - object
+            ?p - person)      ;; the one with the alibi
+        (clueProvesAlibiTrue
+            ?o - object
+            ?p - person)      ;; the one with the alibi
+        
+        ; ROOM STUFF
+        (connected
+            ?r1 - room
+            ?r2 - room)
+        (accessToRoom
+            ?p - person
+            ?r - room)
+        (objectInRoom
+            ?o - object
+            ?r - room)
+        (detectiveInRoom
+            ?d - detective
+            ?r - room)
+        (personInRoom
+            ?p - person
+            ?r - room)
+        (searchedRoom
+            ?r - room)
+        (investigatedObject
+            ?o - object)
+        (personHiddenIn
+            ?p - person
+            ?r - room)
+        (objectHiddenIn
+            ?o - object
+            ?r - room)
+        
+        ; MASTER ROOM
+        (requiresKey
+            ?r - room)
+        (hasKey
+            ?d - detective
+            ?k - key)
+        (keyInRoom
+            ?k - key
+            ?r - room)
+        
+        ; STRONG FEELINGS (MOTIVE)
+        (loves
+            ?p1 - person
+            ?p2 - person)
+        (hates
+            ?p1 - person
+            ?p2 - person)
+        (arguesWith
+            ?p1 - person
+            ?p2 - person)
+        
+        ; ALIBI
+        (interrogatedPerson
+            ?p - person)
+        (hasAlibi
+            ?p - person
+            ?a - alibi)
+            (falseAlibi
+                ?p - person)
+            (provenFalseByPerson
+                ?p1 - person     ;; the one with the alibi
+                ?p2 - person
+                ?a - alibi)
+            (provenFalseByObject
+                ?p - person      ;; the one with the alibi
+                ?o - object
+                ?a - alibi)
+            (canProveAlibiFalse
+                ?p1 - person
+                ?p2 - person)    ;; the one with the alibi
+            (trueAlibi
+                ?p - person)
+            (provenTrueByPerson
+                ?p1 - person     ;; the one with the alibi
+                ?p2 - person
+                ?a - alibi)
+            (provenTrueByObject
+                ?p - person      ;; the one with the alibi
+                ?o - object
+                ?a - alibi)
+            (canProveAlibiTrue
+                ?p1 - person
+                ?p2 - person)    ;; the one with the alibi
+        
+        ; MOODS
+        
+        ; GOAl
+        (solved ?c - case)
+    )
+    
+    ;; DETECTIVE ACTIONS ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    
+    (:action move
+        :parameters (
+            ?d - detective
+            ?k - key
+            ?r1 - room
+            ?r2 - room)
+        :precondition (and
+            (detectiveInRoom ?d ?r1)
+            (not (detectiveInRoom ?d ?r2))
+            (connected ?r1 ?r2)
+            (or
+                (not (requiresKey ?r2))
+                (and
+                    (requiresKey ?r2)
+                    (hasKey ?d ?k))))
+        :effect (and
+            (detectiveInRoom ?d ?r2)
+            (not (detectiveInRoom ?d ?r1)))
+    )
+    
+    (:action searchThisRoom
+        :parameters (
+            ?d - detective
+            ?r - room
+            ?p - person
+            ?o - object
+            ?k - key)
+        :precondition (and
+            (detectiveInRoom ?d ?r)
+            (not (searchedRoom ?r))
+            (personHiddenIn ?p ?r)
+            (objectHiddenIn ?o ?r))
+        :effect (and
+            (searchedRoom ?r)
+            
+            (not (personHiddenIn ?p ?r))
+            (personInRoom ?p ?r)
+            (not (interrogatedPerson ?p))
+            
+            (not (objectHiddenIn ?o ?r))
+            (objectInRoom ?o ?r)
+            (not (investigatedObject ?o)))
+    )
+
+    ;; INVESTIGATE OBJECTS ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    
+    (:action investigate
+        :parameters (
+            ?d - detective
+            ?r - room
+            ?o - object)
+        :precondition (and
+            (not (investigatedObject ?o))
+            (detectiveInRoom ?d ?r)
+            (objectInRoom ?o ?r))
+        :effect (
+            investigatedObject ?o)
+    )
+    
+    (:action clueFound
+        :parameters (
+            ?o - object
+            ?c - clue)
+        :precondition (and
+            (investigatedObject ?o)
+            (not (clueOn ?c ?o)))
+        :effect (
+            clueOn ?c ?o)
+    )
+    
+    (:action clueType1
+        :parameters (
+            ?o - object
+            ?c - clue)
+        :precondition (and
+            (clueOn ?c ?o)
+            (not (bloodOn ?o)))
+        :effect (
+            bloodOn ?o)
+    )
+    
+    (:action clueType2
+        :parameters (
+            ?o - object
+            ?c - clue)
+        :precondition (and
+            (clueOn ?c ?o)
+            (not (fingerprintOn ?o)))
+        :effect (
+            fingerprintOn ?o)
+    )
+    
+    (:action aWildKeyAppeared
+        :parameters (
+            ?d - detective
+            ?k - key
+            ?r - room)
+        :precondition (and
+            (detectiveInRoom ?d ?r)
+            (searchedRoom ?r)
+            (keyInRoom ?k ?r)
+            (not (hasKey ?d ?k)))
+        :effect (
+            hasKey ?d ?k)
+    )
+    
+    ;; INTERROGATE PEOPLE ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    
+    (:action interrogate
+        :parameters (
+            ?d - detective
+            ?r - room
+            ?p - person)
+        :precondition (and
+            (not (interrogatedPerson ?p))
+            (detectiveInRoom ?d ?r)
+            (personInRoom ?p ?r))
+        :effect (
+            interrogatedPerson ?p)
+    )
+    
+    (:action alibiFound
+        :parameters (
+            ?p - person
+            ?a - alibi)
+        :precondition (and
+            (interrogatedPerson ?p)
+            (not (hasAlibi ?p ?a)))
+        :effect (
+            hasAlibi ?p ?a)
+    )
+    
+    ;; ALIBI CHECKS OUT?? ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    
+    (:action areLying
+        :parameters (
+            ?p1 - person
+            ?p2 - person
+            ?o - object
+            ?a - alibi)
+        :precondition (and
+            (or (provenFalseByPerson ?p1 ?p2 ?a)
+                (provenFalseByObject ?p1 ?o ?a)))
+        :effect (
+            falseAlibi ?p1)
+    )
+    
+    (:action areHonest
+        :parameters (
+            ?p1 - person
+            ?p2 - person
+            ?a - alibi
+            ?o - object)
+        :precondition (and
+            (or (provenTrueByPerson ?p1 ?p2 ?a)
+                (provenTrueByObject ?p1 ?o ?a)))
+        :effect (
+            trueAlibi ?p1)
+    )
+    
+    (:action alibiProvenFalseByPerson
+        :parameters (
+            ?p1 - person
+            ?p2 - person
+            ?a - alibi)
+        :precondition (and
+            (hasAlibi ?p1 ?a)
+            (interrogatedPerson ?p2)
+            (canProveAlibiFalse ?p2 ?p1))
+        :effect (
+            provenFalseByPerson ?p1 ?p2 ?a)
+    )
+    
+    (:action alibiProvenTrueByPerson
+        :parameters (
+            ?p1 - person
+            ?p2 - person
+            ?a - alibi)
+        :precondition (and
+            (hasAlibi ?p1 ?a)
+            (interrogatedPerson ?p2)
+            (canProveAlibiTrue ?p2 ?p1))
+        :effect (
+            provenTrueByPerson ?p1 ?p2 ?a)
+    )
+    
+    (:action alibiProvenFalseByObject
+        :parameters (
+            ?p - person
+            ?o - object
+            ?c - clue
+            ?a - alibi)
+        :precondition (and
+            (hasAlibi ?p ?a)
+            (clueOn ?c ?o)
+            (clueProvesAlibiFalse ?o ?p))
+        :effect (
+            provenFalseByObject ?p ?o ?a)
+    )
+    
+    (:action alibiProvenTrueByObject
+        :parameters (
+            ?p - person
+            ?o - object
+            ?c - clue
+            ?a - alibi)
+        :precondition (and
+            (hasAlibi ?p ?a)
+            (clueOn ?c ?o)
+            (clueProvesAlibiTrue ?o ?p))
+        :effect (
+            provenTrueByObject ?p ?o ?a)
+    )
+    
+    ;; MEANS ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    
+    (:action hadAccessToObject
+        :parameters (
+            ?p - person
+            ?o - object
+            ?r - room)
+        :precondition (or
+            (ownershipOf ?p ?o)
+            (and
+                (or
+                    (personInRoom ?p ?r)
+                    (accessToRoom ?p ?r))
+                (objectInRoom ?o ?r)))
+        :effect (
+            accessTo ?p ?o)
+    )
+    
+    (:action accessedObjectIsWeapon
+        :parameters (
+            ?p - person
+            ?o - object)
+        :precondition (and
+            (accessTo ?p ?o)
+            (or
+                (bloodOn ?o)
+                (fingerprintOn ?o)))
+        :effect (
+            accessToWeapon ?p ?o)
+    )
+    
+    ;; MOTIVE ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    
+    (:action loveTriangle
+        :parameters (
+            ?p1 - person
+            ?p2 - person
+            ?p3 - person)
+        :precondition (and
+            (loves ?p1 ?p2)
+            (loves ?p3 ?p2))
+        :effect (and
+            (hates ?p1 ?p3)
+            (hates ?p3 ?p1))
+    )
+    
+    (:action gotIntoAFight
+        :parameters (
+            ?p1 - person
+            ?p2 - person)
+        :precondition (or
+            (arguesWith ?p1 ?p2)
+            (arguesWith ?p2 ?p1))
+        :effect (and
+            (hates ?p1 ?p2)
+            (hates ?p2 ?p1))
+    )
+    
+    ;; SOLVE & CHECK OTHERS ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    
+    (:action aMurdererIsFound
+        :parameters (
+            ?p - person
+            ?v - person
+            ?o - object
+            ?c - case)
+        :precondition (and
+            (accessToWeapon ?p ?o)      ; access to weapon
+            (falseAlibi ?p)               ; lied about alibi
+            ; (not (areHonest ?p))        ; not honest
+            (hates ?p ?v)               ; hates the victim
+            (dead ?v)
+            (not (solved ?c)))          ; case is not yet solved
+        :effect (and
+            (murderer ?p)
+            (solved ?c))
+    )
+
+    (:action solvedScenario0
+        :parameters (
+            ?p1 - person
+            ?p2 - person
+            ?p3 - person
+            ?p4 - person
+            ?v - person
+            ?o - object
+            ?c - case)
+        :precondition (and
+            (not (murderer ?p1))
+            (not (murderer ?p2))
+            (not (murderer ?p3))
+            (not (murderer ?p4))
+            (not (solved ?c)))          ; case is not yet solved
+        :effect (
+            solved ?c)
+    )
+    
+    (:action solvedScenario1
+        :parameters (
+            ?p1 - person
+            ?p2 - person
+            ?p3 - person
+            ?p4 - person
+            ?v - person
+            ?o - object
+            ?c - case)
+        :precondition (and
+            (murderer ?p1)
+            (not (murderer ?p2))
+            (not (murderer ?p3))
+            (not (murderer ?p4))
+            (not (solved ?c)))          ; case is not yet solved
+        :effect (
+            solved ?c)
+    )
+    
+    (:action solvedScenario2
+        :parameters (
+            ?p1 - person
+            ?p2 - person
+            ?p3 - person
+            ?p4 - person
+            ?v - person
+            ?o - object
+            ?c - case)
+        :precondition (and
+            (murderer ?p1)
+            (murderer ?p2)
+            (not (murderer ?p3))
+            (not (murderer ?p4))
+            (not (solved ?c)))          ; case is not yet solved
+        :effect (
+            solved ?c)
+    )
+    
+    (:action solvedScenario3
+        :parameters (
+            ?p1 - person
+            ?p2 - person
+            ?p3 - person
+            ?p4 - person
+            ?v - person
+            ?o - object
+            ?c - case)
+        :precondition (and
+            (murderer ?p1)
+            (murderer ?p2)
+            (murderer ?p3)
+            (not (murderer ?p4))
+            (not (solved ?c)))          ; case is not yet solved
+        :effect (
+            solved ?c)
+    )
+    
+    (:action solvedScenario4
+        :parameters (
+            ?p1 - person
+            ?p2 - person
+            ?p3 - person
+            ?p4 - person
+            ?v - person
+            ?o - object
+            ?c - case)
+        :precondition (and
+            (murderer ?p1)
+            (murderer ?p2)
+            (murderer ?p3)
+            (murderer ?p4)
+            (not (solved ?c)))          ; case is not yet solved
+        :effect (
+            solved ?c)
+    )
+)
+    
+    
+    ;
+    ;
+    ;
+    ;
+    ;

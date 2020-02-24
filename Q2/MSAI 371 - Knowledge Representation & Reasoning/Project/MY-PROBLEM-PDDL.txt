@@ -1,0 +1,95 @@
+(define (problem problem1)
+    (:domain murder-mansion)
+    
+    (:objects
+        MURDER - case
+        Chef Butler Maid Gardener Willie - person
+        Detective - detective
+        Videofootage1 Videofootage2 Knife Revolver - object
+        masterKey - key
+        clue1 clue2 clue3 clue4 - clue
+        Kitchen GreatHall Bedroom Yard MasterRoom - room
+        Alibi1 Alibi2 Alibi3 Alibi4 - alibi
+    )
+    
+    (:init
+        ; persons
+        (dead Willie)
+        (personHiddenIn Chef Kitchen)
+        (personHiddenIn Butler GreatHall)
+        (personHiddenIn Maid Bedroom)
+        (personHiddenIn Gardener Yard)
+        (detectiveInRoom Detective GreatHall)
+        (not (detectiveInRoom Detective Kitchen))
+        (not (detectiveInRoom Detective Bedroom))
+        (not (detectiveInRoom Detective Yard))
+        (not (detectiveInRoom Detective MasterRoom))
+        (not (hasKey Detective masterKey))
+        
+        (not (interrogatedPerson Chef))
+        (not (interrogatedPerson Butler))
+        (not (interrogatedPerson Maid))
+        (not (interrogatedPerson Gardener))
+        
+        ; locations
+        (connected GreatHall Kitchen)
+        (connected GreatHall Bedroom)
+        (connected GreatHall Yard)
+        (connected Kitchen GreatHall)
+        (connected Bedroom GreatHall)
+        (connected Yard GreatHall)
+        (connected MasterRoom Bedroom)
+        (connected Bedroom MasterRoom)
+        (requiresKey MasterRoom)
+        
+        (accessToRoom Butler Bedroom)
+        (accessToRoom Butler MasterRoom)
+        
+        ; objects
+        (ownershipOf Chef Knife)
+        (ownershipOf Butler Revolver)
+        
+        (objectHiddenIn Knife Kitchen)
+        (objectHiddenIn Videofootage1 GreatHall)
+        (objectHiddenIn Videofootage2 GreatHall)
+        (objectHiddenIn Revolver MasterRoom)
+        
+        (not (clueOn clue1 Knife))
+        (not (clueOn clue2 Revolver))
+        (not (clueOn clue3 Videofootage1))
+        (not (clueOn clue4 Videofootage2))
+        
+        (clueProvesAlibiTrue Knife Chef)
+        (clueProvesAlibiFalse Videofootage2 Butler)
+        
+        (not (investigatedObject Knife))
+        (not (investigatedObject Revolver))
+        (not (investigatedObject Videofootage1))
+        (not (investigatedObject Videofootage2))
+        
+        (not (bloodOn Knife))
+        (not (fingerprintsOn Revolver))
+        
+        (keyInRoom masterKey Bedroom)
+        
+        ; relationships
+        (loves Butler Maid)
+        (loves Gardener Maid)
+        (loves Willie Maid)
+        (arguesWith Gardener Willie)
+        
+        ; alibis
+        (not (hasAlibi Chef Alibi1))
+        (not (hasAlibi Butler Alibi2))
+        (not (hasAlibi Maid Alibi3))
+        (not (hasAlibi Gardener Alibi4))
+        
+        (canProveAlibiFalse Butler Chef)
+        (canProveAlibiFalse Chef Gardener)
+        (clueProvesAlibiTrue Knife Chef)
+        (clueProvesAlibiFalse Videofootage2 Maid)
+    )
+    
+    (:goal (solved MURDER))
+)
+

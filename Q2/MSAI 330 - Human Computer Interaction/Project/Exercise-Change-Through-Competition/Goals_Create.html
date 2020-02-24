@@ -1,0 +1,158 @@
+<html>
+
+<head>
+  <title>Create your Goals</title>
+  <link rel="stylesheet" type="text/css" href="Exercise-Styling.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  <script src="Exercise-Functions.js"></script>
+  <div id="screen">
+
+    <!-- TOP BAR -->
+    <div class="header">
+      <h1>New Goal</h1>
+    </div>
+
+    <!-- MENU BUTTONS -->
+    <div class="menu">
+      <a class="button" href="Goals.html">My Goals</a>
+      <a class="button" href="Profile_User.html">My Profile</a>
+      <a class="button" href="Competitions.html">Competitions</a>
+      <!-- <button class="button"></button> -->
+      <!-- <button class="button"></button> -->
+    </div>
+
+    <!-- TITLE? -->
+    <div class="gen-text-help">
+      <h1 style="font-size:27px; margin-top:50px; margin-bottom:30px">Let's Set Your Goal!</h1>
+    </div>
+
+    <!-- TYPE -->
+    <div class="dropdown">
+      <button id="goals_type" class="dropbtn" onclick="butt_drop_type()">Goal Type</button>
+      <div id="goals_type2" class="dropdown-content">
+        <a href="#" id="Cycling" onclick="goaltype_pick(this.id)">Cycling</a>
+        <a href="#" id="Running" onclick="goaltype_pick(this.id)">Running</a>
+        <a href="#" id="Weight Lifting" onclick="goaltype_pick(this.id)">Weight Lifting</a>
+        <a href="#" id="Swimming" onclick="goaltype_pick(this.id)">Swimming</a>
+        <a href="#" id="Frequency" onclick="goaltype_pick(this.id)">Frequency</a>
+      </div>
+    </div>
+
+    <div class="inline">
+      <!-- METRIC -->
+      <form style="margin-bottom:0px">
+        <div class="dropdown">
+          <div class="dropbtn" style="padding:0%; width:156.165px">
+            <div class="form2-styler">
+              <input id="goals_metric" type="text" placeholder="Enter Metric" onclick="empty_field(this.id)" onkeyup="this.value=this.value.replace(/[^\d]/,'')" onkeypress="checkFin()">
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="inline">
+      <!-- UNITS -->
+      <div class="dropdown" style="margin-left: 0px">
+        <button id="goals_unit" class="dropbtn" style="width:75.93px;" onclick="butt_drop_units(this.id)">Units</button>
+        <div id="goals_unit2" class="dropdown-content" style="min-width: 75.93px">
+          <a href="#" id="lbs" onclick="goalunit_pick(this.id)">lbs</a>
+          <a href="#" id="kg" onclick="goalunit_pick(this.id)">kg</a>
+          <a href="#" id="mi" onclick="goalunit_pick(this.id)">mi</a>
+          <a href="#" id="km" onclick="goalunit_pick(this.id)">km</a>
+          <a href="#" id="min" onclick="goalunit_pick(this.id)">min</a>
+          <a href="#" id="hr" onclick="goalunit_pick(this.id)">hr</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- DUE DATE -->
+    <div class="dropdown">
+      <button id="goals_dueM" class="dropbtn" style="width:75.93px;" onclick="butt_dateM(this.id)">MM</button>
+      <div id="goals_dueM2" class="dropdown-content" style="min-width:75.93px; max-height: 173px">
+        <a href="#" id="m1" onclick="dateM_pick(this.id)">Jan</a>
+        <a href="#" id="m2" onclick="dateM_pick(this.id)">Feb</a>
+        <a href="#" id="m3" onclick="dateM_pick(this.id)">Mar</a>
+        <a href="#" id="m4" onclick="dateM_pick(this.id)">Apr</a>
+        <a href="#" id="m5" onclick="dateM_pick(this.id)">May</a>
+        <a href="#" id="m6" onclick="dateM_pick(this.id)">Jun</a>
+        <a href="#" id="m7" onclick="dateM_pick(this.id)">Jul</a>
+        <a href="#" id="m8" onclick="dateM_pick(this.id)">Aug</a>
+        <a href="#" id="m9" onclick="dateM_pick(this.id)">Sep</a>
+        <a href="#" id="m10" onclick="dateM_pick(this.id)">Oct</a>
+        <a href="#" id="m11" onclick="dateM_pick(this.id)">Nov</a>
+        <a href="#" id="m12" onclick="dateM_pick(this.id)">Dec</a>
+      </div>
+    </div>
+    <div class="dropdown" style="margin-left: 0px">
+      <button id="goals_dueD" class="dropbtn" style="width:75.93px;" onclick="butt_dateD(this.id)">DD</button>
+      <div id="goals_dueD2" class="dropdown-content" style="min-width:75.93px; max-height: 173px">
+        <a href="#" id="d1" onclick="dateD_pick(this.id)">1</a>
+        <a href="#" id="d2" onclick="dateD_pick(this.id)">2</a>
+        <a href="#" id="d3" onclick="dateD_pick(this.id)">3</a>
+        <a href="#" id="d4" onclick="dateD_pick(this.id)">4</a>
+        <a href="#" id="d5" onclick="dateD_pick(this.id)">5</a>
+        <a href="#" id="d6" onclick="dateD_pick(this.id)">6</a>
+        <a href="#" id="d7" onclick="dateD_pick(this.id)">7</a>
+        <a href="#" id="d8" onclick="dateD_pick(this.id)">8</a>
+        <a href="#" id="d9" onclick="dateD_pick(this.id)">9</a>
+        <a href="#" id="d10" onclick="dateD_pick(this.id)">10</a>
+        <a href="#" id="d11" onclick="dateD_pick(this.id)">11</a>
+        <a href="#" id="d12" onclick="dateD_pick(this.id)">12</a>
+        <a href="#" id="d13" onclick="dateD_pick(this.id)">13</a>
+        <a href="#" id="d14" onclick="dateD_pick(this.id)">14</a>
+        <a href="#" id="d15" onclick="dateD_pick(this.id)">15</a>
+        <a href="#" id="d16" onclick="dateD_pick(this.id)">16</a>
+        <a href="#" id="d17" onclick="dateD_pick(this.id)">17</a>
+        <a href="#" id="d18" onclick="dateD_pick(this.id)">18</a>
+        <a href="#" id="d19" onclick="dateD_pick(this.id)">19</a>
+        <a href="#" id="d20" onclick="dateD_pick(this.id)">20</a>
+        <a href="#" id="d21" onclick="dateD_pick(this.id)">21</a>
+        <a href="#" id="d22" onclick="dateD_pick(this.id)">22</a>
+        <a href="#" id="d23" onclick="dateD_pick(this.id)">23</a>
+        <a href="#" id="d24" onclick="dateD_pick(this.id)">24</a>
+        <a href="#" id="d25" onclick="dateD_pick(this.id)">25</a>
+        <a href="#" id="d26" onclick="dateD_pick(this.id)">26</a>
+        <a href="#" id="d27" onclick="dateD_pick(this.id)">27</a>
+        <a href="#" id="d28" onclick="dateD_pick(this.id)">28</a>
+        <a href="#" id="d29" onclick="dateD_pick(this.id)">29</a>
+        <a href="#" id="d30" onclick="dateD_pick(this.id)">30</a>
+        <a href="#" id="d31" onclick="dateD_pick(this.id)">31</a>
+      </div>
+    </div>
+    <div class="dropdown" style="margin-left: 0px">
+      <button id="goals_dueY" class="dropbtn" style="width:75.93px;" onclick="butt_dateY(this.id)">YYYY</button>
+      <div id="goals_dueY2" class="dropdown-content" style="min-width:75.93px; max-height: 173px">
+        <a href="#" id="y19" onclick="dateY_pick(this.id)">2019</a>
+        <a href="#" id="y20" onclick="dateY_pick(this.id)">2020</a>
+        <a href="#" id="y21" onclick="dateY_pick(this.id)">2021</a>
+        <a href="#" id="y22" onclick="dateY_pick(this.id)">2022</a>
+        <a href="#" id="y23" onclick="dateY_pick(this.id)">2023</a>
+        <a href="#" id="y24" onclick="dateY_pick(this.id)">2024</a>
+        <a href="#" id="y25" onclick="dateY_pick(this.id)">2025</a>
+        <a href="#" id="y26" onclick="dateY_pick(this.id)">2026</a>
+        <a href="#" id="y27" onclick="dateY_pick(this.id)">2027</a>
+        <a href="#" id="y28" onclick="dateY_pick(this.id)">2028</a>
+        <a href="#" id="y29" onclick="dateY_pick(this.id)">2029</a>
+      </div>
+    </div>
+
+    <br>
+    <br>
+
+    <!-- SET GOAL! -->
+    <div class="goals-making-wrapper">
+      <a id="id_setGoal" href="#">
+        <button class="button-goal3" onclick="setGoal()">
+          <span id="goalvscomp">Set Goal!</span>
+        </button>
+      </a>
+    </div>
+</body>
+
+</html>
+<!--
+* bg iphone img is 363x762px
+* iphone 'screen' is apprx 300x530 -->

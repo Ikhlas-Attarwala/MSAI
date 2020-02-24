@@ -1,0 +1,271 @@
+/*********************
+	Global Classes
+*********************/
+body {
+	background-image: url("images/iphoneOL.jpg");
+	background-repeat: no-repeat;
+	font-family: Avenir, sans-serif;
+}
+
+#screen {
+	height: 530px;
+	width: 300px;
+	margin: 105px 23px;
+}
+
+a:link, a:visited {
+	color: black;
+	text-decoration: none;
+}
+
+a:hover, a:active {
+	color: #a2a2a2;
+	opacity: 0.7;
+}
+
+.head-bar {
+	width: 96.5%;
+	height: 6.5%;
+	background-color: #e6ccff;
+	text-align: center;
+	margin-bottom: 2%;
+	padding: 1.75%;
+}
+
+.head-text
+ {
+	color: #ffffff;
+	margin-top: -2%;
+	text-shadow: 1.2px 1.2px #000000;
+}
+
+.back-button {
+	background-color: lightgrey;
+	border: 1px solid white;
+	color: purple;
+	width: 18%;
+	height: 75%;
+	margin-top: 1%;
+	margin-left: 1%;
+	font-size: 20px;
+}
+
+/*************
+	Albums
+*************/
+.albums-info-wrapper {
+	width: 100%;
+}
+
+.albums-album-art {
+	width: 135px;
+	/* NOTE: Have to use absolute dimensions here
+	because the pictures are different sizes */
+	padding-bottom: 1%;
+	margin-top: 10%;
+}
+
+.albums-album-name {
+	font-size: 18px;
+	font-weight: bold;
+	margin-top: 7%;
+	margin-bottom: 0%;
+}
+
+.albums-album-artist {
+	font-size: 14px;
+	font-style: italic;
+	font-weight: normal;
+	margin-top: 1%;
+	margin-bottom: 12.5%;
+}
+
+/************
+	Songs
+************/
+.songs-info-wrapper {
+	width: 100%;
+	text-align: left;
+	margin-bottom: 7%;
+}
+
+.songs-album-art {
+	width: 145px;
+	/* NOTE: Have to use absolute dimensions here because the
+	future album covers we substitute here would be different sizes */
+	margin-left: 4%;
+	margin-right: -10px;
+}
+
+.songs-album-name {
+	font-size: 24px;
+	font-weight: bold;
+	margin-left: 0%;
+	margin-top: 0%;
+	margin-bottom: 0%;
+}
+
+.songs-album-artist {
+	font-size: 18px;
+	font-style: italic;
+	font-weight: normal;
+	margin-left: 0%;
+	margin-top: 15%;
+	margin-bottom: 15%;
+}
+
+.songs-album-year {
+	font-size: 18px;
+	font-weight: normal;
+	margin-left: 0%;
+	margin-top: 0%;
+	margin-bottom: 0%;
+}
+
+/* NOTE: .songs-text-info became li to cover list of songs */
+li {
+	width: 94%;
+	border: 1px solid darkgrey;
+	margin-top: 2.3%;
+	padding-left: 2%;
+}
+
+.song-hover {
+	color: purple;
+}
+
+/*************
+	Player            <-- guessing we use this for a future 'Part 3' w/ JavaScript?
+*************/
+.player-info-wrapper {
+	width: 100%;
+	text-align: center;
+}
+
+.player-album-art {
+	width: 75%;
+	align-content: center;
+	margin-top: 10%
+}
+
+.player-song-info {
+	
+}
+
+#player-song-name {
+	color: #545454;
+	font-weight: 500;
+	font-size: 19px;
+	margin-top: 12px;
+	margin-bottom: 1px;
+}
+
+#player-album-name {
+	color: #9f5cc4;
+	font-size: 17.2px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+/* INPUT, TYPE=RANGE <-- THIS IS THE VOLUME BAR */
+input[type=range] {
+	margin-top: 7px;
+	width: 75%;
+}
+
+.range-info-wrapper {
+	width: 75%;
+	text-align: center;
+	margin-left: 12%;
+	display: table;
+}
+
+#player-time {
+	
+}
+
+#time-elapsed {
+	font-size: 14px;
+	text-align: left;
+	display: table-cell;
+}
+
+#time-total {
+	font-size: 14px;
+	text-align: right;
+	display: table-cell;
+}
+
+.volume-level {
+	width: 100%;
+	/*display: table;*/
+	margin-top: 15px;
+}
+
+#vol-down {
+	/*display: table-cell;*/
+	display: inline-block;
+}
+
+.divider-vol {
+	width: 2px;
+	display: inline-block;
+}
+
+#vl0 {
+	width: 24px;
+	height: 6px;
+	border: 1px solid black;
+	display: inline-block;
+	vertical-align: 8px;
+}
+
+#vl1 {
+	width: 24px;
+	height: 6px;
+	border: 1px solid black;
+	display: inline-block;
+	vertical-align: 8px;
+}
+
+#vl2 {
+	width: 24px;
+	height: 6px;
+	border: 1px solid black;
+	display: inline-block;
+	vertical-align: 8px;
+}
+
+#vl3 {
+	width: 24px;
+	height: 6px;
+	border: 1px solid black;
+	display: inline-block;
+	vertical-align: 8px;
+}
+
+#vl4 {
+	width: 24px;
+	height: 6px;
+	border: 1px solid black;
+	display: inline-block;
+	vertical-align: 8px;
+}
+
+#vl5 {
+	width: 24px;
+	height: 6px;
+	border: 1px solid black;
+	display: inline-block;
+	vertical-align: 8px;
+}
+
+.divider-rocker {
+	width: 15%;
+	height: auto;
+	display: inline-block;
+}
+
+.volume-rocker {
+	width: 30%;
+}

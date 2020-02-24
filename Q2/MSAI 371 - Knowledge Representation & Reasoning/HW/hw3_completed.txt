@@ -1,0 +1,69 @@
+Ikhlas Attarwala
+MSAI 371 / KRR
+02-07-19
+
+############################################################
+## PROBLEM 1)
+
+SELECT ?university ?universityLabel ?city ?cityLabel
+WHERE {
+  ?university wdt:P31 wd:Q902104;
+              wdt:P17 wd:Q30;
+              wdt:P31 wd:Q615150;
+              wdt:P131 ?city .
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+
+##
+## ANSWER: CORNELL UNIVERSITY IN ITHACA, NY.
+##
+############################################################
+## PROBLEM 2)
+
+SELECT distinct ?city ?cityLabel
+WHERE {
+  ?city wdt:P31/wdt:P279 wd:Q7930989;
+        wdt:P30 wd:Q46;
+        wdt:P30 wd:Q48.
+  
+  ?city p:P17 ?country.
+  ?country pq:P580 ?date.
+  BIND((NOW()) - ?date AS ?distance)
+  FILTER((0 <= ?distance) && (?distance <= 36500))
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+
+}
+
+##
+## ANSWER: ISTANBUL.
+##
+############################################################
+## PROBLEM 3)
+
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX dbp: <http://dbpedia.org/property/>
+
+SELECT distinct ?bridge ?city ?team
+WHERE {
+  SERVICE <http://dbpedia.org/sparql>
+          {
+            ?bridge a dbo:Bridge;
+                      dbo:locatedInArea dbr:Sweden;
+                      dbo:locatedInArea dbr:Denmark;
+                      dbo:locatedInArea ?city.
+            ?city a dbo:City;
+                    dbo:country dbr:Sweden.
+            ?team a dbo:HockeyTeam;
+                    dbp:city ?city;
+                    dbp:colors ?color.
+            
+            FILTER regex(?color, ".*[Rr][Ee][Dd].*")
+  }
+}
+
+##
+## ANSWER: The city is Malmö, Sweden. The hockey team is called the Malmö Redhawks.
+##

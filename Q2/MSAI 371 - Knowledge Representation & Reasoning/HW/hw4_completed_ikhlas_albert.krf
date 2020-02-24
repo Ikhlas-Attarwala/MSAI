@@ -1,0 +1,85 @@
+(in-microtheory KRR-Winter2019Mt)
+
+;;; 0)
+
+(<== (courseTaughtTime ?person ?time)
+	(courseInstructor ?course ?person)
+	(courseTimeString ?course ?time))
+
+;;; 1)
+;;; Answer: "forbus@northwestern.edu"
+
+(<== (emailOfCourseInstructor ?course ?email)
+	(courseInstructor ?course ?person)             ;;; person is instructor of course
+	(emailOf ?person ?email))                      ;;; person has an email
+
+
+;;; 2)
+;;; Answer1: BrentHecht
+;;; Answer2: GokhanMemik
+
+(<== (degreeEarnedAt ?faculty ?univ)
+	(schooling ?faculty ?univ ?deg)                ;;; degree earned at this inst. by person
+	(subOrganizations ?univ ?dept)                 ;;; department is a part of this univ.
+	(facultyDepartment ?faculty ?dept))            ;;; person works in dept.
+
+
+;;; 3)
+;;; Answers:       BrownUniversity, CarnegieMellonUniversity, ColumbiaUniversityintheCityofNewYork,
+;;; Answers(cont): DrVishwanathKaradMITWorldPeaceUniversity, GeorgiaInstituteofTechnology,
+;;; Answers(cont): HarvardUniversity, MassachusettsInstituteofTechnology, PolitecnicodiMilano,
+;;; Answers(cont): PrincetonUniversity, StanfordUniversity, TuftsUniversity, UniversityofCaliforniaBerkeley,
+;;; Answers(cont): UniversityofCaliforniaLosAngeles, UniversityofIllinoisatChicago, UniversityofMichigan,
+;;; Answers(cont): UniversityofSouthernCalifornia, YaleUniversity
+
+(<== (phdInstitutionsByQuarterTaught ?quarter ?institution)
+	(courseTerm ?course ?quarter)                  ;;; course in this quarter
+	(courseInstructor ?course ?person)             ;;; person teaches course
+	(schooling ?person ?institution PhD))          ;;; person studied here
+
+
+;;; 4)
+;;; Answer:        "Aggelos K. Katsaggelos", "Anindya De", "Brent Hecht", "Bryan Pardo",
+;;; Answers(cont): "Chris Riesbeck", "Christos Dimoulas", "Douglas Downey", "Fabian E. Bustamante",
+;;; Answers(cont): "Gokhan Memik", "Haoqi Zhang", "Ian Horswill", "Jack E. Tumblin",
+;;; Answers(cont): "Jason D. Hartline", "Jason 'Willie' Wilson", "Jennie M. Rogers",
+;;; Answers(cont): "Jesse Tov", "Kristian J. Hammond", "Larry Birnbaum", "Marcelo Worsley",
+;;; Answers(cont): "Michael Rubenstein", "Oliver S. Cossairt", "Peter Dinda", "Randall Berry",
+;;; Answers(cont): "Robby Findler", "Russell Joseph", "Sara Owsley Sood", "Simone Campanoni"
+
+(<== (teachesMultiple ?name ?quarter)
+	(courseInstructor ?course1 ?person)            ;;; person teaches course1
+	(courseInstructor ?course2 ?person)            ;;; person teaches course2
+	(courseTerm ?course1 ?quarter)                 ;;; course1 in this quarter
+	(courseTerm ?course2 ?quarter)                 ;;; course2 in this quarter
+	(fullName ?person ?name))                      ;;; person name
+
+
+;;; 5)
+;;; Answer:       "Chris Riesbeck", "Christos Dimoulas", "Gokhan Memik",
+;;; Answer(cont): "Jason 'Willie' Wilson" (yes, I understand why it says this),
+;;; Answer(cont): "Jesse Tov", "Michael Rubenstein", "Peter Dinda", "Sara Owsley Sood",
+;;; Answer(cont): "Simone Campanoni"
+
+(<== (teachMultipleAtSameTime ?name1 ?name2 ?quarter)
+	(fullName ?person1 ?name1)                     ;;; person1 name
+	(fullName ?person2 ?name2)                     ;;; person2 name
+	(courseInstructor ?courseA ?person1)           ;;; person1 teaches courseA
+	(courseInstructor ?courseB ?person1)           ;;; person1 teaches courseB
+	(courseInstructor ?courseC ?person2)           ;;; person2 teaches courseC
+	(courseInstructor ?courseD ?person2)           ;;; person2 teaches courseD
+	(courseTerm ?courseA ?quarter)                 ;;; courseA in this quarter
+	(courseTerm ?courseB ?quarter)                 ;;; courseB in this quarter
+	(courseTerm ?courseC ?quarter)                 ;;; courseC in this quarter
+	(courseTerm ?courseD ?quarter)                 ;;; courseD in this quarter
+	(courseTaughtTime ?person1 ?time)              ;;; person1 teaches any course at this time
+	(courseTaughtTime ?person2 ?time))             ;;; person2 teaches any course at this time
+
+
+;;; 6)
+;;; Answer: "500 - The server has taken too long to respond to the request" <-- it timed out
+
+;;; code would be the same as 5), but cannot write it again or it causes issues with the system.
+;;; I would imagine that as my code for 5 works with "Jason 'Willie' Wilson" and the code can 
+;;; be used with ANY person, I would have been able to answer this BONUS question.
+;;; I should have looked into the order of statements... maybe that would make a difference.

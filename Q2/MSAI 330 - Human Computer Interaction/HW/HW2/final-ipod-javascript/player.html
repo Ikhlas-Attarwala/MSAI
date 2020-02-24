@@ -1,0 +1,86 @@
+<html>
+<header>
+   <title>Music Player</title>
+   <link rel="stylesheet" type="text/css" href="ipod.css" />
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</header>
+
+<body>
+   <div id="screen">
+
+      <!-- START HEADER -->
+      <div class="head-bar">
+         <!-- NOTE: Back arrow is not like previous pages BECAUSE
+                    instructions specifically ask to use this back
+                    arrow and not the other version I was using.
+                    Otherwise I would have changed it. -->
+         <div class="back-button"><a href="songs.html">
+               <i class="material-icons">arrow_back</i></a>
+         </div>
+      </div>
+
+      <div class="player-info-wrapper">
+
+         <!-- START ALBUM ART -->
+         <div>
+            <img class="player-album-art" src="images/currents.jpg" alt="Currents Album Cover" />
+         </div>
+
+         <!-- START ALBUM DETAILS -->
+         <div>
+            <p id="player-song-name">The Less I Know The Better</p>
+            <p id="player-album-name"><em>Currents</em> - Tame Impala</p>
+         </div>
+
+         <!-- START PLAYBACK RANGE -->
+         <!-- NOTE: myRange used to identify range in JS -->
+         <input id="myRange" type="range" value=0 min=0 max=180>
+
+         <!-- START PLAYBACK TIMESTAMP -->
+         <div class="range-info-wrapper">
+            <div id="time-elapsed">0:00</div>
+            <div id="time-total">3:00</div>
+         </div>
+
+         <!-- START SONG SELECTION -->
+         <div>
+            <button onclick="prevSong()">
+               <i class="material-icons">skip_previous</i></button>
+            <!-- NOTE: play-pause used to switch button icon -->
+            <button onclick="switchPlay()">
+               <i id="play-pause" class="material-icons">pause</i></button>
+            <button onclick="nextSong()">
+               <i class="material-icons">skip_next</i></button>
+         </div>
+
+         <!-- START VOLUME -->
+         <div class="volume-level">
+            <div id="vol-down">
+               <i class="material-icons">volume_down</i>
+            </div>
+            <div id="vl0"></div><div class="divider-vol"></div>
+            <div id="vl1"></div><div class="divider-vol"></div>
+            <div id="vl2"></div><div class="divider-vol"></div>
+            <div id="vl3"></div><div class="divider-vol"></div>
+            <div id="vl4"></div><div class="divider-vol"></div>
+            <div id="vl5"></div>
+         </div>
+
+         <div>
+            <button class="volume-rocker" onclick="volDown()">&mdash;</button>
+            <div class="divider-rocker"></div>
+            <button class="volume-rocker" onclick="volUp()">+</button>
+         </div>
+
+      </div>
+   </div>
+
+
+
+   <script src="ipod.js"></script>
+</body>
+
+</html>
+<!-- 
+* bg iphone img is 363x762px
+* iphone 'screen' is apprx 300x530 -->
