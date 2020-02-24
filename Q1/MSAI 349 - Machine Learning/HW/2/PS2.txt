@@ -1,0 +1,31 @@
+Ikhlas Attarwala
+
+1) When comparing which attribute is most useful for classifying, you need to look for which attribute creates the most contrast between what you're classifying, in this case whether the wine quality is "good" or "bad". It would appear as though alcohol content shows opposite-sided skewing, where most "bad" wines had lower alcohol content, and "good" wines had a slightly larger concentration when alcohol content was higher in the wine. Most histograms for the other attributes show similar shaped "good" and "bad" densities, and it would be harder to differentiate there.
+
+2) Accuracy: 62.381%. ZeroR is a helpful baseline because it's the simplest classifier that assigns all values to the greatest or most common class. In this case it classified the largest instance, "bad", as 62%. We can expect other classifiers to do a better job from here because we know what the worst (or "baseline") performance has yielded.
+
+3) The most informative single feature of this task is alcohol. It would appear that the greater the value of the "alcohol" attribute (I'm assuming it stands for alcohol content as a percent), the higher correlation for better wine quality. Yes, this matches my answer for #1.
+
+4) 10-fold cross validation is when you split any given data into 10 equal sets and then train & test over 9 & 1 sets respectively, 10 times using a different set for testing during each of those instances. The 10 results are averaged and this is the accuracy provided by 10-fold cross validation. The main reason for the difference is that there are 10 different accuracies measured by leaving one set out each of those 10 times. Cross-validation is important because it provides fantastic accuracy results (although it takes a little longer) when it comes time for testing, and also has a lower variance than other estimators in general.
+
+5) Command-line: LMT -I -1 -M 12 -W 0.0 -num-decimal-places 3
+   Accuracy using 10-fold cross validation: 86.1376%
+
+6) I chose the model out of curiosity. I've never used logistic model trees, but I believe I read that the induction algorithm they use in cross-validation doesn't overfit the training data. When it trained without cross-validation, the accuracy was as high as 97.9%. But I really did choose it because I was curious to see how accurate this model would be. I played around with the validation a few times, but to keep things simple settled on 10-fold, and made small changes to the model's parameters: I kept the minNumInstances at 12 and numDecimalPlaces at 3.
+
+7) All 10-fold CV accuracies are written below. The best classifier I found specifically for Cars and not Wine was the MLP (Multi-layer-perceptron). I found that the higher the learning rate, the greater the difference between both results. I searched for MLP specifically because (well for one I'm reading about it right now, but also) I wondered if the greater complexity of nodes in Wine could throw off the accuracy. The best classifier I could find for Wine and not Cars was tricky, and only had limited options. The RSS (RandomSubSpace) is based on a decision tree model that improves accuracy as it grows in complexity. This was ideal for Wine and all its attributes as opposed to Cars.
+
+Model : wine_acc(RSS) + cars_acc(MLP) - wine_acc(MLP) - cars_acc(RSS)
+Acc.. : 86.9312%(RSS) + 99.2437%(MLP) - 84.9735%(MLP) - 71.0084%(RSS) = 30.193
+
+
+8) f2(x) and f3(x) are quite easy to visualize when you graph each point on the x-y-coordinate plane, or simply notice that there's a linear growth in f2(x) and an exponential growth for f3(x) per x. Between f1(x) and f4(x), it's important to note the x-positions not being in uniform distribution. When computing 1 nearest neighbor for each and traversing each x-position, you can intuitively realize that the pairs of points that are closest to each other (pair x(1) and x(2), and pair x(4) and x(5)) are of the same sign within the pair, but not between (e.g. + + and - - works). When computing LOOCV 3 nearest neighbors, if you choose each x point, and try to figure out which one is left out, there's a lot of overlap but it's possible to choose just 1 sign for any x apart from the others. The homework has assigned it to 5.
+
+f1(x): 1-NN
+
+f2(x): Linear Regression
+
+f3(x): Polynomial Regression
+
+f4(x): 3-NN
+

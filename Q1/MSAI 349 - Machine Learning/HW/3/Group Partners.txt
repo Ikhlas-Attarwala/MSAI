@@ -1,0 +1,5 @@
+Group partners:
+
+No one. I did almost all of it alone.
+
+I only asked Souvik Bagchi for a little help with the Part 2, Dropout editing as mine wasn't working. It didn't work in the end, so he showed me his results and the effects of temperature on the models so I could understand what role dropout plays in overfitting and smoothing.
