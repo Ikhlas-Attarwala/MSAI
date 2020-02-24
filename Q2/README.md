@@ -8,7 +8,7 @@ Classes incl.
 2. NLP (Natural Langauge Processing)
    - Semantics-oriented introduction to NLP with a focus on representation and inference in story understanding.
      - *Python*
-3. Intro to AI (actually taken during Quarter #1)
+3. Introduction to AI
    - Core techniques and applications for AI incl. hypothesis exploration, theorem proving, vision and neural networks.
      - *Python, PDDL, First-Order Logic*
 4. KRR (Knowledge, Representation & Reasoning)
